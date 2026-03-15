@@ -1,3 +1,21 @@
+def sumar(a, b):
+    return a + b
+
+
+def restar(a, b):
+    return a - b
+
+
+def multiplicar(a, b):
+    return a * b
+
+
+def dividir(a, b):
+    if b == 0:
+        raise ValueError("No se puede dividir por cero")
+    return a / b
+
+
 def pedir_numero(mensaje):
     while True:
         try:
@@ -19,15 +37,16 @@ def pedir_operacion():
 def calcular(num1, num2, operacion):
 
     if operacion == '+':
-        return num1 + num2
+        return sumar(num1, num2)
+
     elif operacion == '-':
-        return num1 - num2
+        return restar(num1, num2)
+
     elif operacion == '*':
-        return num1 * num2
+        return multiplicar(num1, num2)
+
     elif operacion == '/':
-        if num2 == 0:
-            raise ValueError("No se puede dividir por cero.")
-        return num1 / num2
+        return dividir(num1, num2)
 
 
 def calculadora():
@@ -37,17 +56,14 @@ def calculadora():
     num1 = pedir_numero("Ingrese el primer numero: ")
     operacion = pedir_operacion()
 
-    while True:
-        num2 = pedir_numero("Ingrese el segundo numero: ")
+    num2 = pedir_numero("Ingrese el segundo numero: ")
 
-        if operacion == '/' and num2 == 0:
-            print("No se puede dividir por 0.")
-        else:
-            break
+    try:
+        resultado = calcular(num1, num2, operacion)
+        print("El resultado es:", resultado)
 
-    resultado = calcular(num1, num2, operacion)
-
-    print("El resultado es:", resultado)
+    except ValueError as e:
+        print(e)
 
 
 if __name__ == "__main__":

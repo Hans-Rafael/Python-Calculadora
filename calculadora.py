@@ -1,47 +1,3 @@
-print("Calculadora basica: suma, resta, multiplicacion y division")
-
-# Primer numero
-while True:
-    try:
-        num1 = float(input("Ingrese el primer numero: "))
-        break
-    except ValueError:
-        print("Debe ingresar un numero valido.")
-
-# Operacion
-while True:
-    operacion = input("Ingrese la operacion (+, -, *, /): ")
-    if operacion in ['+', '-', '*', '/']:
-        break
-    else:
-        print("Operacion no valida.")
-
-# Segundo numero
-while True:
-    try:
-        num2 = float(input("Ingrese el segundo numero: "))
-        
-        if operacion == '/' and num2 == 0:
-            print("No se puede dividir por 0.")
-        else:
-            break
-            
-    except ValueError:
-        print("Debe ingresar un numero valido.")
-
-# Calculo
-if operacion == '+':
-    resultado = num1 + num2
-elif operacion == '-':
-    resultado = num1 - num2
-elif operacion == '*':
-    resultado = num1 * num2
-elif operacion == '/':
-    resultado = num1 / num2
-
-print("El resultado es:", resultado)
-
-#### Calculador completa con funciones######
 def pedir_numero(mensaje):
     while True:
         try:
@@ -69,22 +25,30 @@ def calcular(num1, num2, operacion):
     elif operacion == '*':
         return num1 * num2
     elif operacion == '/':
+        if num2 == 0:
+            raise ValueError("No se puede dividir por cero.")
         return num1 / num2
 
 
-print("Calculadora basica")
+def calculadora():
 
-num1 = pedir_numero("Ingrese el primer numero: ")
-operacion = pedir_operacion()
+    print("Calculadora basica: suma, resta, multiplicacion y division")
 
-while True:
-    num2 = pedir_numero("Ingrese el segundo numero: ")
+    num1 = pedir_numero("Ingrese el primer numero: ")
+    operacion = pedir_operacion()
 
-    if operacion == '/' and num2 == 0:
-        print("No se puede dividir por 0.")
-    else:
-        break
+    while True:
+        num2 = pedir_numero("Ingrese el segundo numero: ")
 
-resultado = calcular(num1, num2, operacion)
+        if operacion == '/' and num2 == 0:
+            print("No se puede dividir por 0.")
+        else:
+            break
 
-print("El resultado es:", resultado)
+    resultado = calcular(num1, num2, operacion)
+
+    print("El resultado es:", resultado)
+
+
+if __name__ == "__main__":
+    calculadora()

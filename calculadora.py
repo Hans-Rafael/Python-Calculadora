@@ -1,70 +1,61 @@
 def sumar(a, b):
     return a + b
-
-
 def restar(a, b):
     return a - b
-
-
 def multiplicar(a, b):
     return a * b
-
-
 def dividir(a, b):
     if b == 0:
-        raise ValueError("No se puede dividir por cero")
+        raise ValueError("No se puede dividir por cero.")
     return a / b
-
-
-def pedir_numero(mensaje):
-    while True:
-        try:
-            numero = float(input(mensaje))
-            return numero
-        except ValueError:
-            print("Debe ingresar un numero valido.")
-
-
-def pedir_operacion():
-    while True:
-        operacion = input("Ingrese la operacion (+, -, *, /): ")
-        if operacion in ['+', '-', '*', '/']:
-            return operacion
-        else:
-            print("Operacion no valida.")
-
-
-def calcular(num1, num2, operacion):
-
-    if operacion == '+':
-        return sumar(num1, num2)
-
-    elif operacion == '-':
-        return restar(num1, num2)
-
-    elif operacion == '*':
-        return multiplicar(num1, num2)
-
-    elif operacion == '/':
-        return dividir(num1, num2)
-
-
-def calculadora():
-
-    print("Calculadora basica: suma, resta, multiplicacion y division")
-
-    num1 = pedir_numero("Ingrese el primer numero: ")
-    operacion = pedir_operacion()
-
-    num2 = pedir_numero("Ingrese el segundo numero: ")
-
+def _validar_numero(a):
     try:
-        resultado = calcular(num1, num2, operacion)
-        print("El resultado es:", resultado)
+        float(a)
+    except ValueError:
+        raise ValueError("Debe ingresar un numero valido.")
 
-    except ValueError as e:
-        print(e)
+# Menú interactivo
+def calculadora():
+    print("\n--- CALCULADORA PYTHON ---")
+    while True:
+        while True:
+            a_input = input("Primer número: ")
+            try:
+                _validar_numero(a_input)
+                a = float(a_input)
+                break
+            except ValueError as e:
+                print(f"Error: {e}")
+        while True:
+            b_input = input("Segundo número: ")
+            try:
+                _validar_numero(b_input)
+                b = float(b_input)
+                break
+            except ValueError as e:
+                print(f"Error: {e}")
+        print("1) Sumar 2) Restar 3) Multiplicar 4) Dividir")
+        opcion = input("Elije (1-4): ")
+        try:
+            if opcion == '1':
+                resultado = sumar(a, b)
+            elif opcion == '2':
+                resultado = restar(a, b)
+            elif opcion == '3':
+                resultado = multiplicar(a, b)
+            elif opcion == '4':
+                resultado = dividir(a, b)
+            else:
+                print("Opción inválida.")
+                continue
+            print(f"Resultado: {resultado}")
+        except ValueError as e:
+            print(f"Error: {e}")
+        print("¿Quiere continuar? (s/n): ")
+        continuar = input()
+        if continuar.lower() != 's':
+            print("Gracias por usar la calculadora.")
+            break
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     calculadora()
